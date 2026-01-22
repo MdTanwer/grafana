@@ -116,7 +116,7 @@ export const TimeIntervalsTable = () => {
                 'alerting.time-intervals-table.text-havent-created-time-intervals',
                 "You haven't created any time intervals yet"
               )}
-              buttonLabel="Add time interval"
+              buttonLabel={t('alerting.time-interval.add-time-interval', 'Add time interval')}
               buttonIcon="plus"
               buttonSize="lg"
               href={makeAMLink('alerting/routes/mute-timing/new', alertManagerSourceName)}
