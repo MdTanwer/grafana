@@ -5878,6 +5878,11 @@
       "title": "There are no dashboard links added yet"
     }
   },
+  "dashboard-picker": {
+    "default-folder-title": "Dashboards",
+    "no-dashboards-found": "No dashboards found",
+    "select-dashboard": "Select dashboard"
+  },
   "dashboard-scene": {
     "ad-hoc-variable-form": {
       "adhoc-options": "Ad-hoc options",

@@ -2,6 +2,7 @@ import debounce from 'debounce-promise';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 import { SelectableValue } from '@grafana/data';
+import { t } from '@grafana/i18n';
 import { AsyncSelectProps, AsyncSelect } from '@grafana/ui';
 import { AnnoKeyFolder, AnnoKeyFolderTitle } from 'app/features/apiserver/types';
 import { getDashboardAPI } from 'app/features/dashboard/api/dashboard_api';
@@ -18,7 +19,8 @@ interface Props extends Omit<AsyncSelectProps<DashboardPickerDTO>, 'value' | 'on
 export type DashboardPickerDTO = Pick<DashboardQueryResult, 'uid' | 'name'> &
   Pick<DashboardDTO['meta'], 'folderUid' | 'folderTitle'>;
 
-const formatLabel = (folderTitle = 'Dashboards', dashboardTitle: string) => `${folderTitle}/${dashboardTitle}`;
+const formatLabel = (folderTitle = t('dashboard-picker.default-folder-title', 'Dashboards'), dashboardTitle: string) =>
+  `${folderTitle}/${dashboardTitle}`;
 
 async function findDashboards(query = '') {
   const result = await getGrafanaSearcher().search({ query, kind: ['dashboard'], limit: 100 });
@@ -42,7 +44,16 @@ const getDashboards = debounce(findDashboards, 250, { leading: true });
 
 // TODO: this component should provide a way to apply different filters to the search APIs
 export const DashboardPicker = forwardRef<HTMLElement, Props>(
-  ({ value, onChange, placeholder = 'Select dashboard', noOptionsMessage = 'No dashboards found', ...props }, ref) => {
+  (
+    {
+      value,
+      onChange,
+      placeholder = t('dashboard-picker.select-dashboard', 'Select dashboard'),
+      noOptionsMessage = t('dashboard-picker.no-dashboards-found', 'No dashboards found'),
+      ...props
+    },
+    ref
+  ) => {
     const [current, setCurrent] = useState<SelectableValue<DashboardPickerDTO>>();
 
     // This is required because the async select does not match the raw uid value
