@@ -79,12 +79,12 @@ export const NotificationsStep = ({ alertUid }: NotificationsStepProps) => {
 
   const title = (() => {
     if (isRecordingRuleByType(type)) {
-      return 'Add labels';
+      return t('alerting.notifications-step.add-labels', 'Add labels');
     }
     if (isGrafanaManaged) {
-      return 'Configure notifications';
+      return t('alerting.notifications-step.configure-notifications', 'Configure notifications');
     }
-    return 'Configure labels and notifications';
+    return t('alerting.notifications-step.configure-labels-and-notifications', 'Configure labels and notifications');
   })();
 
   return (

@@ -2033,6 +2033,9 @@
       "create-notification-templates-customize-notifications": "Create notification templates to customize your notifications."
     },
     "notifications-step": {
+      "add-labels": "Add labels",
+      "configure-labels-and-notifications": "Configure labels and notifications",
+      "configure-notifications": "Configure notifications",
       "labels-better-manage-recording-rules": "Add labels to help you better manage your recording rules.",
       "recipient": "Recipient",
       "recipient-notification-fires": "Select who should receive a notification when an alert rule fires."
@@ -2212,6 +2215,13 @@
       "label-time-range": "Time Range",
       "max-data-points": "MD = {{maxDataPoints}}",
       "min-interval": "Min. Interval = {{minInterval}}"
+    },
+    "query-step": {
+      "alert-rule-help-content": "An alert rule consists of one or more queries and expressions that select the data you want to measure. Define queries and/or expressions and then choose one of them as the alert rule condition. This is the threshold that an alert rule must meet or exceed in order to fire. For more information on queries and expressions, see Query and transform data.",
+      "define-query-and-alert-condition": "Define query and alert condition",
+      "define-recording-rule": "Define recording rule",
+      "define-your-recording-rule": "Define your recording rule",
+      "recording-rule-help-content": "Pre-compute frequently needed or computationally expensive expressions and save their result as a new set of time series."
     },
     "queryAndExpressionsStep": {
       "custom": "Custom",
