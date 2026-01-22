@@ -8215,6 +8215,28 @@
       "checking-completed-setup-steps": "Checking completed setup steps",
       "remove-this-panel": "Remove this panel"
     },
+    "steps": {
+      "add-datasource-title": "Add your first data source",
+      "advanced-info": "Manage your users and teams and add plugins. These steps are optional",
+      "advanced-title": "Advanced",
+      "basic-title": "Basic",
+      "create-dashboard-title": "Create your first dashboard",
+      "create-users-teams-info": "Learn to organize your users in teams and manage resource access and roles.",
+      "create-users-teams-title": "Create users and teams",
+      "dashboard-heading": "dashboards",
+      "datasource-heading": "data sources",
+      "datasource-tutorial-heading": "Data source and dashboards",
+      "grafana-fundamentals-info": "Set up and understand Grafana if you have no prior experience. This tutorial guides you through the entire process and covers the \"Data source\" and \"Dashboards\" steps to the right.",
+      "grafana-fundamentals-title": "Grafana fundamentals",
+      "install-plugins-title": "Find and install plugins",
+      "plugins-heading": "plugins",
+      "setup-complete-heading": "Setup complete!",
+      "setup-complete-subheading": "All necessary steps to use Grafana are done. Now tackle advanced steps or make the best use of this home dashboard – it is, after all, a fully customizable dashboard – and remove this panel.",
+      "users-heading": "Users",
+      "welcome-heading": "Welcome to Grafana",
+      "welcome-info": "The steps below will guide you to quickly finish setting up your Grafana installation.",
+      "welcome-subheading": "The steps below will guide you to quickly finish setting up your Grafana installation."
+    },
     "tutorial-card": {
       "complete": "complete"
     }
