@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { isEmpty, isString, set } from 'lodash';
+import moment from 'moment-timezone';
 
 import { dateTimeFormatTimeAgo, setWeekStart, TimeZone } from '@grafana/data';
+import { getLanguage } from '@grafana/i18n/internal';
 import { getWeekStart, WeekStart } from '@grafana/ui';
 import config from 'app/core/config';
 import { contextSrv } from 'app/core/services/context_srv';
@@ -77,19 +79,24 @@ export const slice = createSlice({
     },
     sessionsLoaded: (state, action: PayloadAction<{ sessions: UserSession[] }>) => {
       const sorted = action.payload.sessions.sort((a, b) => Number(b.isActive) - Number(a.isActive)); // Show active sessions first
-      state.sessions = sorted.map((session) => ({
-        id: session.id,
-        isActive: session.isActive,
-        seenAt: dateTimeFormatTimeAgo(session.seenAt),
-        createdAt: session.createdAt,
-        clientIp: session.clientIp,
-        browser: session.browser,
-        browserVersion: session.browserVersion,
-        authModule: session.authModule,
-        os: session.os,
-        osVersion: session.osVersion,
-        device: session.device,
-      }));
+      state.sessions = sorted.map((session) => {
+        const currentLang = getLanguage();
+        moment.locale(currentLang);
+
+        return {
+          id: session.id,
+          isActive: session.isActive,
+          seenAt: dateTimeFormatTimeAgo(session.seenAt),
+          createdAt: session.createdAt,
+          clientIp: session.clientIp,
+          browser: session.browser,
+          browserVersion: session.browserVersion,
+          authModule: session.authModule,
+          os: session.os,
+          osVersion: session.osVersion,
+          device: session.device,
+        };
+      });
       state.sessionsAreLoading = false;
     },
     userSessionRevoked: (state, action: PayloadAction<{ tokenId: number }>) => {
