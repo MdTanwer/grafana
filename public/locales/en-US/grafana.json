@@ -2679,6 +2679,21 @@
         "grafana": "Grafana managed"
       },
       "rule-type": "Rule type",
+      "rule-health": {
+        "error": "Error",
+        "no-data": "No Data",
+        "ok": "Ok"
+      },
+      "rule-state": {
+        "firing": "Firing",
+        "normal": "Normal",
+        "pending": "Pending",
+        "recovering": "Recovering"
+      },
+      "rule-type-values": {
+        "alerting": "Alerting",
+        "recording": "Recording"
+      },
       "rulesSearchInput-placeholder-search": "Search",
       "search": "Search",
       "search-by-data-sources": "Search by data sources",
@@ -2693,6 +2708,15 @@
       "ungrouped": "Ungrouped",
       "ungrouped-suffix": "{{ruleName}} (Ungrouped)",
       "unknown-rule": "Unknown Rule"
+    },
+    "rules-view": {
+      "grouped-view-aria-label": "View rules grouped by namespace and group",
+      "grouped-view-label": "Grouped",
+      "list-view-aria-label": "View rules as a flat list",
+      "list-view-label": "List",
+      "selector-aria-label": "Select rules view mode",
+      "state-view-aria-label": "View rules grouped by state",
+      "state-view-label": "State"
     },
     "saved-searches": {
       "actions-aria-label": "Actions",

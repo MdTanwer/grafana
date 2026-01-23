@@ -22,30 +22,31 @@ import { MultipleDataSourcePicker } from '../MultipleDataSourcePicker';
 
 import { RulesViewModeSelector } from './RulesViewModeSelector';
 
-const RuleTypeOptions: SelectableValue[] = [
-  { label: 'Alert ', value: PromRuleType.Alerting },
-  { label: 'Recording ', value: PromRuleType.Recording },
-];
-
-const RuleHealthOptions: SelectableValue[] = [
-  { label: 'Ok', value: RuleHealth.Ok },
-  { label: 'No Data', value: RuleHealth.NoData },
-  { label: 'Error', value: RuleHealth.Error },
-];
-
 const canRenderContactPointSelector = contextSrv.hasPermission(AccessControlAction.AlertingReceiversRead);
-
-const RuleStateOptions = Object.entries(PromAlertingRuleState)
-  .filter(([key, value]) => value !== PromAlertingRuleState.Unknown) // Exclude Unknown state from filter options
-  .map(([key, value]) => ({
-    label: alertStateToReadable(value),
-    value,
-  }));
 
 const RulesFilter = ({ onClear = () => undefined, viewMode, onViewModeChange }: RulesFilterProps) => {
   const styles = useStyles2(getStyles);
   const { pluginsFilterEnabled } = usePluginsFilterStatus();
   const { filterState, hasActiveFilters, searchQuery, setSearchQuery, updateFilters } = useRulesFilter();
+
+  // Define options inside component to use t() function
+  const RuleTypeOptions: SelectableValue[] = [
+    { label: t('alerting.rules-filter.rule-type-values.alerting', 'Alerting'), value: PromRuleType.Alerting },
+    { label: t('alerting.rules-filter.rule-type-values.recording', 'Recording'), value: PromRuleType.Recording },
+  ];
+
+  const RuleHealthOptions: SelectableValue[] = [
+    { label: t('alerting.rules-filter.rule-health.ok', 'Ok'), value: RuleHealth.Ok },
+    { label: t('alerting.rules-filter.rule-health.no-data', 'No Data'), value: RuleHealth.NoData },
+    { label: t('alerting.rules-filter.rule-health.error', 'Error'), value: RuleHealth.Error },
+  ];
+
+  const RuleStateOptions = Object.entries(PromAlertingRuleState)
+    .filter(([key, value]) => value !== PromAlertingRuleState.Unknown) // Exclude Unknown state from filter options
+    .map(([key, value]) => ({
+      label: alertStateToReadable(value),
+      value,
+    }));
 
   // This key is used to force a rerender on the inputs when the filters are cleared
   const [filterKey, setFilterKey] = useState<number>(Math.floor(Math.random() * 100));

@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import { SelectableValue } from '@grafana/data';
+import { t } from '@grafana/i18n';
 import { RadioButtonGroup } from '@grafana/ui';
 
 import { trackRulesListViewChange } from '../../../Analytics';
@@ -11,11 +12,6 @@ import { useURLSearchParams } from '../../../hooks/useURLSearchParams';
 export type SupportedView = 'list' | 'grouped';
 
 type LegacySupportedView = 'list' | 'grouped' | 'state';
-
-const ViewOptions: Array<SelectableValue<SupportedView>> = [
-  { icon: 'folder', value: 'grouped', label: 'Grouped' },
-  { icon: 'list-ul', value: 'list', label: 'List' },
-];
 
 interface RulesViewModeSelectorV2Props {
   viewMode?: SupportedView;
@@ -30,7 +26,30 @@ interface RulesViewModeSelectorV2Props {
  * Use the complementary {@link useListViewMode} hook to get the current view mode and a handler for changing it.
  */
 function RulesViewModeSelectorV2({ viewMode, onViewModeChange }: RulesViewModeSelectorV2Props) {
-  return <RadioButtonGroup options={ViewOptions} value={viewMode} onChange={onViewModeChange} />;
+  // Define options inside component to use t() function
+  const ViewOptions: Array<SelectableValue<SupportedView>> = [
+    {
+      icon: 'folder',
+      value: 'grouped',
+      label: t('alerting.rules-view.grouped-view-label', 'Grouped'),
+      ariaLabel: t('alerting.rules-view.grouped-view-aria-label', 'View rules grouped by namespace and group'),
+    },
+    {
+      icon: 'list-ul',
+      value: 'list',
+      label: t('alerting.rules-view.list-view-label', 'List'),
+      ariaLabel: t('alerting.rules-view.list-view-aria-label', 'View rules as a flat list'),
+    },
+  ];
+
+  return (
+    <RadioButtonGroup
+      options={ViewOptions}
+      value={viewMode}
+      onChange={onViewModeChange}
+      aria-label={t('alerting.rules-view.selector-aria-label', 'Select rules view mode')}
+    />
+  );
 }
 
 export function useListViewMode() {
@@ -71,23 +90,43 @@ export function useListViewMode() {
   };
 }
 
-const LegacyViewOptions: Array<SelectableValue<LegacySupportedView>> = [
-  { label: 'Grouped', value: 'grouped' },
-  { label: 'List', value: 'list' },
-  { label: 'State', value: 'state' },
-];
-
 function RulesViewModeSelectorV1() {
   const [queryParams, updateQueryParams] = useURLSearchParams();
   const viewParam = queryParams.get('view');
 
   const currentView = viewParamToLegacyView(viewParam);
 
+  // Define options inside component to use t() function
+  const LegacyViewOptions: Array<SelectableValue<LegacySupportedView>> = [
+    {
+      label: t('alerting.rules-view.grouped-view-label', 'Grouped'),
+      value: 'grouped',
+      ariaLabel: t('alerting.rules-view.grouped-view-aria-label', 'View rules grouped by namespace and group'),
+    },
+    {
+      label: t('alerting.rules-view.list-view-label', 'List'),
+      value: 'list',
+      ariaLabel: t('alerting.rules-view.list-view-aria-label', 'View rules as a flat list'),
+    },
+    {
+      label: t('alerting.rules-view.state-view-label', 'State'),
+      value: 'state',
+      ariaLabel: t('alerting.rules-view.state-view-aria-label', 'View rules grouped by state'),
+    },
+  ];
+
   const handleViewChange = (view: LegacySupportedView) => {
     updateQueryParams({ view });
   };
 
-  return <RadioButtonGroup options={LegacyViewOptions} value={currentView} onChange={handleViewChange} />;
+  return (
+    <RadioButtonGroup
+      options={LegacyViewOptions}
+      value={currentView}
+      onChange={handleViewChange}
+      aria-label={t('alerting.rules-view.selector-aria-label', 'Select rules view mode')}
+    />
+  );
 }
 
 function viewParamToLegacyView(viewParam: string | null): LegacySupportedView {

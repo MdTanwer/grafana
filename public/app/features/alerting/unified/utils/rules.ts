@@ -1,6 +1,7 @@
 import { capitalize } from 'lodash';
 
 import { AlertState } from '@grafana/data';
+import { t } from '@grafana/i18n';
 import { config } from '@grafana/runtime';
 import {
   Alert,
@@ -285,10 +286,18 @@ export function isPluginProvidedRule(rule?: Rule | PromRuleDTO | RulerRuleDTO): 
 }
 
 export function alertStateToReadable(state: PromAlertingRuleState | GrafanaAlertStateWithReason | AlertState): string {
+  // Use t() function for non-JSX strings
   if (state === PromAlertingRuleState.Inactive) {
-    return 'Normal';
+    return t('alerting.rules-filter.rule-state.normal', 'Normal');
   }
-  return capitalize(state);
+  // For other states, you might want individual keys
+  const stateKeys: Record<string, string> = {
+    [PromAlertingRuleState.Firing]: t('alerting.rules-filter.rule-state.firing', 'Firing'),
+    [PromAlertingRuleState.Pending]: t('alerting.rules-filter.rule-state.pending', 'Pending'),
+    [PromAlertingRuleState.Recovering]: t('alerting.rules-filter.rule-state.recovering', 'Recovering'),
+  };
+
+  return stateKeys[state] || capitalize(state);
 }
 
 export const flattenRules = (rules: RuleNamespace[]) => {
